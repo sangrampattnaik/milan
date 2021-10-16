@@ -1,10 +1,24 @@
 from django.db import models
+from rest_framework import serializers
+
+def validate_audiofile(value):
+    try:
+        ext = value.content_type.split("/")[1].lower()
+        if ext not in ['mp3','mpeg','flac','wav']:
+            raise serializers.ValidationError("invalid audio file format... Onlu mp3, wav, flac")
+        return value
+    except ValueError:
+        raise serializers.ValidationError("invalid audio file format... Onlu mp3, wav, flac")
+
+
+
 
 
 class TimeStampMixin(models.Model):
     id = models.AutoField(primary_key=True,editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    audio_file = models.FileField(upload_to="audio_files",validators=[validate_audiofile])
     
     class Meta:
         abstract = True

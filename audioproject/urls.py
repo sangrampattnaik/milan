@@ -1,3 +1,4 @@
+from django.db.models.expressions import F
 from django.urls import path, re_path as url, include
 from django.contrib import admin
 from rest_framework import permissions
@@ -6,7 +7,8 @@ from drf_yasg import openapi
 from rest_framework import routers
 from audio import views
 from rest_framework.routers import DefaultRouter
-
+from django.conf.urls.static import static
+from django.conf import settings
 
 router = DefaultRouter()
 
@@ -45,4 +47,5 @@ api_urls = [
                                          cache_timeout=0), name='schema-redoc'),
 ]
 
-urlpatterns += api_urls
+urlpatterns += api_urls + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+

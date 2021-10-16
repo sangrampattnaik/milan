@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'audio',
     'rest_framework',
     'drf_yasg',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -121,6 +122,10 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URl = "/media/"
 
 SWAGGER_SETTINGS = {
     "docs_expansion":"none",
